@@ -16,12 +16,13 @@ async function getOneProduct() {
     const body = await response.json();
     return body;
   } catch (e) {
-    alert("Il y a un problème avec le serveur, merci de réessayer plus tard")
+    alert("Une erreur s'est produite, merci de réessayer plus tard")
   }
 }
 
 // Afficher le produit
 function displayProduct(product) {
+
   // Création du titre
   document.title = `${product.name}`;
 
@@ -59,6 +60,7 @@ function displayProduct(product) {
 }
 
 // Création du localStorage
+
 async function createLS() {
   const inputQuantity = document.querySelector("#quantity");
   const product = await getOneProduct();
@@ -104,11 +106,13 @@ async function createLS() {
 }
 
 // Sauvegarder dans le localStorage
+
 function saveProductLS(product) {
   return localStorage.setItem("product", JSON.stringify(product));
 }
 
 // Récupérer le localStorage
+
 function getProductLS() {
   let product = JSON.parse(localStorage.getItem("product"));
   if (product == null) {
