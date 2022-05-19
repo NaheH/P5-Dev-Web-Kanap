@@ -1,49 +1,49 @@
-fillSection();
-
-// Récupération des articles de l'API
-async function getArticles() {
-    var articlesCatch = await fetch("http://localhost:3000/api/products")
-    return await articlesCatch.json();
-}
-
-    // Répartition des données de l'API dans le DOM
-async function fillSection() {
-    var result = await getArticles ()
-    .then(function (resultatAPI){
-        const articles = resultatAPI;
-        console.table(articles);
-        for (let article in articles) {
-
-            // Insertion de l'élément "a"
-            let productLink = document.createElement("a");
-            document.querySelector(".items").appendChild(productLink);
-            productLink.href = `product.html?id=${resultatAPI[article]._id}`;
-
-            // Insertion de l'élément "article"
-            let productArticle = document.createElement("article");
-            productLink.appendChild(productArticle);
-
-            // Insertion de l'image
-            let productImg = document.createElement("img");
-            productArticle.appendChild(productImg);
-            productImg.src = resultatAPI[article].imageUrl;
-            productImg.alt = resultatAPI[article].altTxt;
-
-            // Insertion du titre "h3"
-            let productName = document.createElement("h3");
-            productArticle.appendChild(productName);
-            productName.classList.add("productName");
-            productName.innerHTML = resultatAPI[article].name;
-
-            // Insertion de la description "p"
-            let productDescription = document.createElement("p");
-            productArticle.appendChild(productDescription);
-            productDescription.classList.add("productName");
-            productDescription.innerHTML = resultatAPI[article].description;
-        }
-    })
-    .catch (function(error){
-        return error;
-    });
-}
-
+// Fonction de départ au lancement de la page
+const init = async () => {
+    const products = await getProducts();
+    displayProducts(products);
+  };
+  
+  init();
+  
+  const result = document.querySelector("#items");
+  
+  // Récupération0 des produits de l'API
+  async function getProducts() {
+    try{
+  
+      const response = await fetch("http://localhost:3000/api/products");
+      const body = await response.json();
+      return body;
+    } catch(e){
+      alert("Il y a un problème avec le serveur, merci de réessayer plus tard")
+    }
+  }
+  
+  
+  
+  // Affichage des produits
+  function displayProducts(products) {
+    for (const product of products) {
+      const a = document.createElement("a");
+      const article = document.createElement("article");
+      const img = document.createElement("img");
+      const h3 = document.createElement("h3");
+      const p = document.createElement("p");
+  
+      h3.textContent = `${product.name}`;
+      p.textContent = `${product.description}`;
+  
+      a.setAttribute("href", `./product.html?id=${product._id}`);
+      img.setAttribute("src", `${product.imageUrl}`);
+      img.setAttribute("alt", `${product.altTxt}`);
+      h3.setAttribute("class", `${product.name}`);
+      p.setAttribute("class", `${product.description}`);
+  
+      result.appendChild(a);
+      a.appendChild(article);
+      article.appendChild(img);
+      article.appendChild(h3);
+      article.appendChild(p);
+    }
+  }
