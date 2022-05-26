@@ -5,7 +5,6 @@ let quantity = "";
 // Fonction qui débute au lancement de la page
 const init = async () => {
   const productLS = await getProductLS();
- // productLS.sort(a => (a.id>b.id));
   displayProduct(productLS);
   deleteItem(productLS);
   totalQuantity();
