@@ -5,6 +5,7 @@ let quantity = "";
 // Fonction qui débute au lancement de la page
 const init = async () => {
   const productLS = await getProductLS();
+ // productLS.sort(a => (a.id>b.id));
   displayProduct(productLS);
   deleteItem(productLS);
   totalQuantity();
@@ -14,7 +15,6 @@ const init = async () => {
 init();
 
 // Récupérer les produits du localStorage 
-/// JSON (format qui stocke des informations structurées et utilisé pour transfer de données entre serveur et client)///
 function getProductLS() {
   return JSON.parse(localStorage.getItem("product"));
 }

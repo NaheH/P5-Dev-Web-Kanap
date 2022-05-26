@@ -8,7 +8,7 @@ const init = async () => {
   
   const result = document.querySelector("#items");
   
-  // Récupération0 des produits de l'API
+  // Récupération des produits de l'API
   async function getProducts() {
     try{
   
